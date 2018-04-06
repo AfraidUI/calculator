@@ -1,6 +1,16 @@
 /* this project is only a play. */
+/* jshint esversion: 6 */
 
-
+function deepMap(target,fun){
+    if(!isArray(target) || target == null)
+    return fun(target);
+    else {
+        for(var i = 0;i < target.length;i++){
+            target[i] = deepMap(target[i],fun);
+        }
+        return target;
+    }  
+}
 function det(array){
     'use strict';
     if(!isArray(array)){
@@ -14,7 +24,7 @@ function det(array){
             return a;
         }
     });
-    for (let ind = 0;ind < array.length;ind++){
+    for(let ind = 0;ind < array.length;ind++){
         if(array.length !== array[ind].length)
         throw new Error('this is not a square');
     }
@@ -32,7 +42,7 @@ function det(array){
             }
             return result;
         }
-    }
+    };
     return work(array);
 }
 function localDel(array,index){
@@ -44,12 +54,12 @@ function localDel(array,index){
     return org;
 }
 function deepCopy(a){
-    if(!isObject(a) || a == null)
+    if(!isArray(a) || a == null)
     return a;
     else {
-        var copy= new a.constructor();
-        for(let key in a){
-            copy[key]=deepCopy(a[key]);
+        var copy= [];
+        for(let i = 0; i < a.length; i++){
+            copy[i]=deepCopy(a[i]);
         }
         return copy;
     }
@@ -60,8 +70,4 @@ function isArray(tar) {
     }
     return false;
 }
-function isObject(tar) {
-    if(tar.constructor === Object)
-        return true;
-    return false;
-}
+
