@@ -11,12 +11,11 @@ function deepMap(target,fun){
         return target;
     }  
 }
-function det(array){
-    'use strict';
+function check(array) {
     if(!isArray(array)){
         throw new TypeError('you should give an array.');
     }
-    deepMap(array,function(a){
+    return deepMap(array,function(a){
         if(typeof a !== 'number'){
         throw new TypeError('you should give a two-layer array and all of it should be a number.');
         }
@@ -24,12 +23,16 @@ function det(array){
             return a;
         }
     });
+}
+function det(array){
+    'use strict';
+    check(array);
     for(let ind = 0;ind < array.length;ind++){
         if(array.length !== array[ind].length)
         throw new Error('this is not a square');
     }
-    var result = 0;
     var work = function(nowArray){
+        var result = 0;
         var row = nowArray.length;
         var line = nowArray[0].length;
         var fac;
@@ -71,3 +74,11 @@ function isArray(tar) {
     return false;
 }
 
+function homoEqual(array) {
+    if(det(array) !== 0) {
+        return 0;
+    }
+}
+function solve(array) {
+    
+}
